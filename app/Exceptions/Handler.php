@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use Exception;
+use Throwable;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -30,10 +30,10 @@ class Handler extends ExceptionHandler
     /**
      * Notification for 403 error Unauthorized user call action
      * @param  [type]    $request   [description]
-     * @param  Exception $exception [description]
+     * @param  Throwable $exception [description]
      * @return [type]               [description]
      */
-    private function unauthorized($request, Exception $exception)
+    private function unauthorized($request, Throwable $exception)
     {
       if ($request->expectsJson()) {
         return response()->json(['error' => $exception->getMessage()], 403);
@@ -45,10 +45,10 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         parent::report($exception);
     }
@@ -57,10 +57,10 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
         // Check Authorization for callAction in contoller
         if ($exception instanceof AuthorizationException) {
