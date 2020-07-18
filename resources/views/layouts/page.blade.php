@@ -38,8 +38,13 @@
             <!-- BEGIN Page Footer -->
             <footer class="page-footer" role="contentinfo">
                 <div class="d-flex align-items-center flex-1 text-muted">
+                    @php
+                        $json = file_get_contents(base_path('package.json'));
+                        $decode = json_decode($json,true);
+                        $version = $decode['version'];
+                    @endphp
                     <span class="hidden-md-down fw-700">{{date('Y')}} &copy; <a href='#' class='text-primary fw-500'
-                            title='' target='_blank'>{{env('APP_DEVELOPER','')}}</a> - v{{env('APP_VERSION','')}}</span>
+                            title='' target='_blank'>{{env('APP_DEVELOPER','')}}</a> - v {{$version}}</span>
                 </div>
                 <div>
                     <ul class="list-table m-0">
