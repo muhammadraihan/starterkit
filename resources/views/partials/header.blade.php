@@ -64,10 +64,15 @@
         <!-- app notification -->
         <!-- app user menu -->
         <div>
-        <a href="#" data-toggle="dropdown" title="{{Auth::user()->email}}"
+            <a href="#" data-toggle="dropdown" title="{{Auth::user()->email}}"
                 class="header-icon d-flex align-items-center justify-content-center ml-2">
-                <img src="{{asset('img/avatar').'/'.Auth::user()->avatar}}" class="profile-image rounded-circle"
-                    alt="Dr. Codex Lantern">
+                @if (file_exists(public_path('img/avatar').'/'.'user'.'/'.Auth::user()->avatar))
+                <img src="{{asset('img/avatar').'/'.'user'.'/'.Auth::user()->avatar}}"
+                    class="rounded-circle profile-image" alt="User Avatar">
+                @else
+                <img src="{{asset('img/avatar/avatar_icon.png')}}" class="rounded-circle profile-image"
+                    alt="User Avatar">
+                @endif
                 <!-- you can also add username next to the avatar with the codes below:
                     <span class="ml-1 mr-1 text-truncate text-truncate-header hidden-xs-down">Me</span>
                     <i class="ni ni-chevron-down hidden-xs-down"></i> -->
@@ -76,8 +81,13 @@
                 <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                     <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                         <span class="mr-2">
-                            <img src="{{asset('img/avatar').'/'.Auth::user()->avatar}}"
+                            @if (file_exists(public_path('img/avatar').'/'.'user'.'/'.Auth::user()->avatar))
+                            <img src="{{asset('img/avatar').'/'.'user'.'/'.Auth::user()->avatar}}"
                                 class="rounded-circle profile-image" alt="User Avatar">
+                            @else
+                            <img src="{{asset('img/avatar/avatar_icon.png')}}" class="rounded-circle profile-image"
+                                alt="User Avatar">
+                            @endif
                         </span>
                         <div class="info-card-text">
                             <div class="fs-lg text-truncate text-truncate-lg">{{Auth::user()->name}}</div>
