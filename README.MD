@@ -1,4 +1,4 @@
-<p align="center"><img src="https://res.cloudinary.com/dzeekbpqn/image/upload/v1583082434/logo_wba_svg.svg" width="400"></p>
+<p align="center"><img src="https://res.cloudinary.com/wba-indonesia/image/upload/v1598387833/logo_wba_dafkys.png" width="400"></p>
 
 <p align="center">
 </p>
@@ -8,6 +8,10 @@
 ## About
 
 This is a starter kit to build application project using Laravel framework. This starter kit featured with access control system, and API ready to build backend or frontend. Admin dashboard is integrated with admin template. The purpose of this project is to cut the time of integrating template to laravel or setup authorization with access control list so developer can focus to build some awesome apps.
+
+## Requirements
+
+- PHP => 7.3
 
 ## Usage
 
