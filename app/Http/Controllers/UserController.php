@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Traits\Authorizable;
 
-use App\User;
-use App\Role;
+use App\Models\User;
+use App\Models\Role;
 use Carbon\Carbon;
 
 use Auth;
