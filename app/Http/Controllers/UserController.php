@@ -231,7 +231,7 @@ class UserController extends Controller
         ];
         $this->validate($request, $validation, $messages);
 
-        $folder = public_path().'/img'.'/avatar'.'/';
+        $folder = public_path().'/img'.'/avatar'.'/user'.'/';
         if (!File::exists($folder)) {
           File::makeDirectory($folder, 0775, true, true);
         }
