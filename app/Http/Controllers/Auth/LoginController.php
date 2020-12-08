@@ -52,5 +52,21 @@ class LoginController extends Controller
         'last_login_at' => Carbon::now()->toDateTimeString(),
         'last_login_ip' => $request->getClientIp()
       ]);
+
+      // Logging
+      $updated_at = Carbon::now()->toDateTimeString();
+      $properties = [
+        'attributes' =>
+        [
+          'name' => $user->name,
+          'description' => 'Login into the system at '.$updated_at
+        ]
+      ];
+      $desc = 'User '.$user->name.' logged in into the system';
+      activity('auth')
+      ->performedOn($user)
+      ->causedBy($user)
+      ->withProperties($properties)
+      ->log($desc);
     }
 }
