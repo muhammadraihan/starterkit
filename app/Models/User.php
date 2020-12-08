@@ -7,9 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Contracts\Auth\CanResetPassword;
+
 use App\Traits\Uuid;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, CanResetPassword
 {
     use HasRoles;
     use Notifiable;
