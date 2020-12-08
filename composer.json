@@ -20,6 +20,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.0",
+        "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-permission": "^3.0",
         "tymon/jwt-auth": "dev-develop",
         "webpatser/laravel-uuid": "^3.0",
