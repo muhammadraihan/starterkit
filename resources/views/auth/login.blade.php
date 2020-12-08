@@ -12,8 +12,8 @@
 <div class="blankpage-form-field">
     <div class="page-logo m-0 w-100 align-items-center justify-content-center rounded border-bottom-left-radius-0 border-bottom-right-radius-0 px-4">
         <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
-            <img src="{{asset('img/logo.png')}}" alt="SmartAdmin WebApp" aria-roledescription="logo">
-        <span class="page-logo-text mr-1">Login</span>
+            <img src="{{asset('img/logo.png')}}" alt="App logo" aria-roledescription="logo">
+        <span class="page-logo-text mr-1">Secure Login</span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
         </a>
     </div>
@@ -55,9 +55,9 @@
         </form>
     </div>
     <div class="blankpage-footer text-center">
-        {{-- @if (Route::has('password.reset'))
-        <a href="{{ route('password.request') }}"><strong>Recover Password</strong></a>    
-        @endif --}}
+        @if (Route::has('password.reset'))
+        <a href="{{ route('password.request') }}"><strong>Forgot Password ?</strong></a>    
+        @endif
     </div>
 </div>
 <div class="login-footer p-2">
