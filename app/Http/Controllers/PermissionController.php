@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Traits\Authorizable;
-use App\Permission;
-use App\Role;
+use App\Models\Permission;
+use App\Models\Role;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;

@@ -28,8 +28,13 @@
                         </h2>
                     </div>
                     <div class="d-flex flex-column align-items-center justify-content-center p-4">
-                        <img id="image-preview" src="{{asset('img/avatar').'/'.$user->avatar}}"
-                            class="rounded-circle shadow-2 img-thumbnail" alt="" style="max-height:150px;">
+                        @if (!is_null(Auth::user()->avatar))
+                        <img id="image-preview" src="{{asset('img/avatar').'/user'.'/'.$user->avatar}}"
+                        class="rounded-circle shadow-2 img-thumbnail" alt="" style="max-height:150px;">
+                        @else
+                        <img id="image-preview" src="{{asset('img/avatar/avatar_icon.png')}}"
+                        class="rounded-circle shadow-2 img-thumbnail" alt="" style="max-height:150px;">
+                        @endif
                         <h5 class="mb-0 fw-700 text-center mt-3">
                             Change Avatar
                         </h5>

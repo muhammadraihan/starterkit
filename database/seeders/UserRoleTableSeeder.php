@@ -1,9 +1,13 @@
 <?php
 
-use App\Permission;
-use App\Role;
-use App\User;
+namespace Database\Seeders;
+
+use App\Models\Permission;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+
+use Hash;
 
 class UserRoleTableSeeder extends Seeder
 {

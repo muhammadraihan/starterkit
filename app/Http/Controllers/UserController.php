@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Traits\Authorizable;
 
-use App\User;
-use App\Role;
+use App\Models\User;
+use App\Models\Role;
 use Carbon\Carbon;
 
 use Auth;
@@ -231,7 +231,7 @@ class UserController extends Controller
         ];
         $this->validate($request, $validation, $messages);
 
-        $folder = public_path().'/img'.'/avatar'.'/';
+        $folder = public_path().'/img'.'/avatar'.'/user'.'/';
         if (!File::exists($folder)) {
           File::makeDirectory($folder, 0775, true, true);
         }

@@ -74,6 +74,14 @@
                 </ul>
             </li>
             @endhasanyrole
+            @hasanyrole('superadmin')
+            <li class="">
+                <a href="{{route('logs')}}" title="System Log" data-filter-tags="System Log">
+                    <i class="fal fa-shield-check"></i>
+                    <span class="nav-link-text" data-i18n="nav.system_log">System Logs</span>
+                </a>
+            </li>
+            @endhasanyrole
         </ul>
         <div class="filter-message js-filter-message bg-success-600"></div>
     </nav>

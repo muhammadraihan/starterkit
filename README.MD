@@ -1,13 +1,30 @@
-<p align="center"><img src="https://res.cloudinary.com/dzeekbpqn/image/upload/v1583082434/logo_wba_svg.svg" width="400"></p>
+<p align="center"><img src="https://res.cloudinary.com/wba-indonesia/image/upload/v1598387833/logo_wba_dafkys.png" width="400"></p>
 
 <p align="center">
 </p>
 
-# Lara Starter Kit
+# Starter Kit
 
 ## About
 
 This is a starter kit to build application project using Laravel framework. This starter kit featured with access control system, and API ready to build backend or frontend. Admin dashboard is integrated with admin template. The purpose of this project is to cut the time of integrating template to laravel or setup authorization with access control list so developer can focus to build some awesome apps.
+
+## What's New
+
+- Now support laravel 8 and PHP 8. [Check changelog](CHANGELOG.md)
+
+- Folder structure now using laravel 8 standard.
+
+## Requirements
+
+- PHP => 7.3
+
+## Features
+
+- Access Control List by spatie.
+- Log Activity by spatie. (Please refer to existing models)
+- API ready by JWT.
+- Smartadmin templates already integrated.
 
 ## Usage
 
@@ -18,16 +35,15 @@ This is a starter kit to build application project using Laravel framework. This
 - Run php artisan key:generate
 - Run php artisan jwt:secret
 - Run php artisan db:seed --class=UserRoleTableSeeder
-- Coding using laravel as usual.
 - Build something awesome !!!
 
 ## Admin Dashboard
 
-Admin dashboard is using smartadmin template. Check this [link](https://www.gotbootstrap.com/themes/smartadmin/4.4.1/intel_analytics_dashboard.html) for full documentation. or clone this [repo](https://git.fiotech.co/wbaindonesia/smartadmin-themes.git) and run locally to get more details about this template.
+Admin dashboard is using smartadmin template. Check this [link](https://www.gotbootstrap.com/themes/smartadmin/4.4.1/intel_analytics_dashboard.html) for full documentation. or clone this [repo](https://git.wbaindonesia.co/wbaindonesia/smartadmin-themes.git) and run locally to get more details about this template.
 
 ## Documentation
 
-Maybe in the future.
+Still doesn't have. Maybe in the future.
 
 ## Contributing
 
@@ -35,7 +51,7 @@ We will talk about it later.
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within this project, please send an e-mail to WBA Indonesia via [devops@wbaindonesia.com](mailto:devopsr@wbaindonesia.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within this project, please send an e-mail to WBA Indonesia via [devops@wbaindonesia.com](mailto:devops@wbaindonesia.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
