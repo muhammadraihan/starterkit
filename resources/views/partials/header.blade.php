@@ -66,7 +66,7 @@
         <div>
             <a href="#" data-toggle="dropdown" title="{{Auth::user()->email}}"
                 class="header-icon d-flex align-items-center justify-content-center ml-2">
-                @if (file_exists(public_path('img/avatar').'/'.'user'.'/'.Auth::user()->avatar))
+                @if (!is_null(Auth::user()->avatar))
                 <img src="{{asset('img/avatar').'/'.'user'.'/'.Auth::user()->avatar}}"
                     class="rounded-circle profile-image" alt="User Avatar">
                 @else
@@ -81,7 +81,7 @@
                 <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                     <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                         <span class="mr-2">
-                            @if (file_exists(public_path('img/avatar').'/'.'user'.'/'.Auth::user()->avatar))
+                            @if (!is_null(Auth::user()->avatar))
                             <img src="{{asset('img/avatar').'/'.'user'.'/'.Auth::user()->avatar}}"
                                 class="rounded-circle profile-image" alt="User Avatar">
                             @else
