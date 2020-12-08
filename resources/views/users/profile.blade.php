@@ -28,7 +28,7 @@
                         </h2>
                     </div>
                     <div class="d-flex flex-column align-items-center justify-content-center p-4">
-                        @if (file_exists(public_path('img/avatar').'/'.'user'.'/'.Auth::user()->avatar)))
+                        @if (!is_null(Auth::user()->avatar))
                         <img id="image-preview" src="{{asset('img/avatar').'/user'.'/'.$user->avatar}}"
                         class="rounded-circle shadow-2 img-thumbnail" alt="" style="max-height:150px;">
                         @else
