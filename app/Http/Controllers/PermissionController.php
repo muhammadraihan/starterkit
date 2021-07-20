@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Traits\Authorizable;
 use App\Models\Permission;
 use App\Models\Role;
-use DataTables;
-use DB;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class PermissionController extends Controller
 {
@@ -23,8 +23,10 @@ class PermissionController extends Controller
     {
         if (request()->ajax()) {
             DB::statement(DB::raw('set @rownum=0'));
-            $permissions = Permission::select([DB::raw('@rownum  := @rownum  + 1 AS rownum'),
-                'name', 'created_at']);
+            $permissions = Permission::select([
+                DB::raw('@rownum  := @rownum  + 1 AS rownum'),
+                'name', 'created_at'
+            ]);
             return DataTables::of($permissions)
                 ->editColumn('created_at', function ($permission) {
                     return $permission->created_at->format('l \\, jS F Y h:i:s A');
