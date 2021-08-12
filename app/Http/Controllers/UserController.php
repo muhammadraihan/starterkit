@@ -48,7 +48,7 @@ class UserController extends Controller
         ->addColumn('action', function ($user) {
           if (auth()->user()->can('edit_users', 'delete_users')) {
             return '<a class="btn btn-success btn-sm btn-icon waves-effect waves-themed" href="' . route('users.edit', $user->uuid) . '"><i class="fal fa-edit"></i></a>
-              <a class="btn btn-danger btn-sm btn-icon waves-effect waves-themed delete-btn" data-url="' . URL::route('users.destroy', $user->uuid) . '" data-id="' . $user->uuid . '" data-token="' . csrf_token() . '" data-toggle="modal" data-target="#modal-delete"><i class="fal fa-trash-alt"></i></a>';
+              <a class="btn btn-danger btn-sm btn-icon waves-effect waves-themed delete-btn" data-url="' . URL::route('users.destroy', $user->uuid) . '" data-id="' . $user->uuid . '" data-token="' . csrf_token() . '" data-toggle="modal" data-target="#modal-delete" href=""><i class="fal fa-trash-alt"></i></a>';
           } else {
             return '<a href="#" class="badge badge-secondary">Not Authorize to Perform Action</a>';
           }
@@ -79,7 +79,6 @@ class UserController extends Controller
    */
   public function store(Request $request)
   {
-    // dd(request()->all());
     // Validation
     $this->validate($request, [
       'name' => 'required|min:2',
@@ -126,7 +125,6 @@ class UserController extends Controller
   {
     $roles = Role::all()->pluck('name', 'name');
     $user = User::uuid($uuid);
-    // dd($user->roles[0]['name']);
     return view('users.edit', compact('roles', 'user'));
   }
 
