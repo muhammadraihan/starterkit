@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menu;
 use App\Traits\Authorizable;
 use App\Models\Permission;
 use App\Models\Role;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
+use Yajra\DataTables\Facades\DataTables;
 
 class RoleController extends Controller
 {
@@ -20,9 +25,22 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        $permissions = Permission::all();
-        return view('roles.index', compact('roles', 'permissions'));
+        if (request()->ajax()) {
+            DB::statement(DB::raw('set @rownum=0'));
+            $roles = Role::select([DB::raw('@rownum  := @rownum  + 1 AS rownum'), 'id', 'name']);
+            return DataTables::of($roles)
+                ->addColumn('action', function ($row) {
+                    if ($row->id == 1) {
+                        return '<a class="btn btn-success btn-sm btn-icon waves-effect waves-themed" href="' . route('roles.edit', $row->id) . '" title="Edit Role"><i class="fal fa-map-signs"></i></a>';
+                    }
+                    return '
+                    <a class="btn btn-success btn-sm btn-icon waves-effect waves-themed" href="' . route('roles.edit', $row->id) . '" title="Edit Role"><i class="fal fa-map-signs"></i></a>
+                    <a class="btn btn-danger btn-sm btn-icon waves-effect waves-themed delete-btn" data-url="' . URL::route('roles.destroy', $row->id) . '" data-id="' . $row->id . '" data-token="' . csrf_token() . '" data-toggle="modal" data-target="#modal-delete" href="" title="Delete Role"><i class="fal fa-trash-alt"></i></a>';
+                })
+                ->removeColumn('id')
+                ->make();
+        }
+        return view('roles.index');
     }
 
     /**
@@ -32,7 +50,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $collect_permissions = collect(Permission::select('id', 'name')->get());
+        $menus = Menu::select('id', 'menu_title')->where('parent_id', 0)->get();
+        $permissions = $collect_permissions->split(4);
+        return view('roles.create', compact('permissions', 'menus'));
     }
 
     /**
@@ -43,19 +64,36 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        // validate input
-      $this->validate($request,
-      //rules
-      [
-        'name'  =>  'required|unique:roles,name'
-      ]);
+        $permissions = $request->get('permissions', []);
+        $menus = $request->get('menus', []);
+        $rules = [
+            'name' => 'required|min:4'
+        ];
+        $messages = [
+            '*.required' => 'Field is required',
+            '*.min' => 'Field must be at least 3 characters',
+        ];
+        $this->validate($request, $rules, $messages);
 
-      $role = new Role();
-      $role->name = $request->name;
-      $role->save();
-
-      toastr()->success('New Role Added','Success');
-      return redirect()->back();
+        DB::beginTransaction();
+        try {
+            $role = new Role();
+            $role->name = $request->name;
+            $role->save();
+            // sync role to permissions
+            $role->syncPermissions($permissions);
+            // add attach menu to role
+            $role->menus()->attach($menus);
+        } catch (Exception $e) {
+            // catch error and rollback database update
+            DB::rollback();
+            toastr()->error($e->getMessage(), 'Error');
+            return redirect()->back()->withInput();
+        }
+        // now is save to commit update and redirect to index
+        DB::commit();
+        toastr()->success('New Role Added', 'Success');
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -75,9 +113,13 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(Request $request, $id)
     {
-        //
+        $collect_permissions = collect(Permission::select('id', 'name')->get());
+        $menus = Menu::select('id', 'menu_title')->where('parent_id', 0)->get();
+        $permissions = $collect_permissions->split(4);
+        $role = Role::where('id', $id)->first();
+        return view('roles.edit', compact('role', 'permissions', 'menus'));
     }
 
     /**
@@ -89,18 +131,34 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($role = Role::findOrFail($id)) {
-            // admin role has everything
-            if ($role->name === 'superadmin') {
-                $role->syncPermissions(Permission::all());
-                return redirect()->route('roles.index');
-            }
-            $permissions = $request->get('permissions', []);
+        $permissions = $request->get('permissions', []);
+        $menus = $request->get('menus', []);
+        $rules = [
+            'name' => 'required|min:4'
+        ];
+        $messages = [
+            '*.required' => 'Field is required',
+            '*.min' => 'Field must be at least 3 characters',
+        ];
+        $this->validate($request, $rules, $messages);
+        DB::beginTransaction();
+        try {
+            $role = Role::findOrFail($id);
+            $role->name = $request->name;
+            $role->save();
+            // sync role to permissions
             $role->syncPermissions($permissions);
-            toastr()->success($role->name . ' Role Permission has been updated', 'Success');
-        } else {
-            toastr()->error('Role with id' . $id . 'not found', 'Error');
+            // sync menu to role
+            $role->menus()->sync($menus);
+        } catch (Exception $e) {
+            // catch error and rollback database update
+            DB::rollback();
+            toastr()->error($e->getMessage(), 'Error');
+            return redirect()->back()->withInput();
         }
+        // now is save to commit update and redirect to index
+        DB::commit();
+        toastr()->success('Role ' . $role->name . ' updated', 'Success');
         return redirect()->route('roles.index');
     }
 
@@ -110,8 +168,24 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $role = Role::findOrFail($id);
+            // remove permissions
+            $role->syncPermissions();
+            // remove menu
+            $role->menus()->detach();
+            $role->delete();
+        } catch (Exception $e) {
+            // catch error and rollback database update
+            DB::rollback();
+            toastr()->error($e->getMessage(), 'Error');
+            return redirect()->route('roles.index');
+        }
+        DB::commit();
+        toastr()->success('Role Deleted', 'Success');
+        return redirect()->route('roles.index');
     }
 }
