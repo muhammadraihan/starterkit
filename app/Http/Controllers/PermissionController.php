@@ -76,7 +76,6 @@ class PermissionController extends Controller
             ]);
             // get checkbox value
             $crud = $request->input('action');
-            // dd($crud);
             if ($crud != null) {
                 foreach ($crud as $action) {
                     // combine resource name with crud action item name
@@ -101,50 +100,5 @@ class PermissionController extends Controller
             toastr()->error('Please choose one of the options', 'Error');
             return redirect()->route('permissions.create')->withInput();
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Permission $permission)
-    {
-        //
     }
 }
