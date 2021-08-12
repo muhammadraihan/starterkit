@@ -55,7 +55,7 @@ class Permission extends \Spatie\Permission\Models\Permission
     {
         return "Data has been {$eventName}";
     }
-    
+
     public static function defaultPermissions()
     {
         return [
@@ -69,10 +69,13 @@ class Permission extends \Spatie\Permission\Models\Permission
             'edit_roles',
             'delete_roles',
 
+            'view_menus',
+            'add_menus',
+            'edit_menus',
+            'delete_menus',
+
             'view_permissions',
             'add_permissions',
-            'edit_permissions',
-            'delete_permissions',
 
             'view_logs',
         ];
