@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Menu;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class UserRoleTableSeeder extends Seeder
 {
@@ -58,10 +58,29 @@ class UserRoleTableSeeder extends Seeder
 
                 // create one user for each role
                 $this->createUser($role);
+
+                $user = User::where('name', '=', 'superadmin')->first()->uuid;
+                $menus = [
+                    ['menu_title' => 'Access Control', 'icon_class' => 'fal fa-cog', 'order' => 1, 'created_by' => $user],
+                    ['menu_title' => 'System Logs', 'route_name' => 'logs', 'icon_class' => 'fal fa-shield-check', 'order' => 2, 'created_by' => $user],
+                    ['menu_title' => 'Permission Management', 'route_name' => 'permissions.index', 'parent_id' => 1, 'order' => 1, 'created_by' => $user],
+                    ['menu_title' => 'Menu Management', 'route_name' => 'menus.index', 'parent_id' => 1, 'order' => 2, 'created_by' => $user],
+                    ['menu_title' => 'Role Management', 'route_name' => 'roles.index', 'parent_id' => 1, 'order' => 3, 'created_by' => $user],
+                    ['menu_title' => 'User Management', 'route_name' => 'users.index', 'parent_id' => 1, 'order' => 4, 'created_by' => $user],
+                ];
+                $this->command->getOutput()->createProgressBar(count($menus));
+                $this->command->getOutput()->progressStart();
+                foreach ($menus as $menu) {
+                    Menu::create($menu);
+                    $this->command->getOutput()->progressAdvance();
+                }
+                $this->command->getOutput()->progressFinish();
+                $this->command->info('Data menu inserted to database');
+                $role->menus()->attach(Menu::all());
+                $this->command->info('superadmin granted all menus');
             }
 
             $this->command->info('Roles ' . $input_roles . ' added successfully');
-
         } else {
             Role::firstOrCreate(['name' => 'user']);
             $this->command->info('Added only default user role.');
