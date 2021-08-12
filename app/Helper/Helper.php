@@ -2,9 +2,10 @@
 
 namespace App\Helper;
 
+use App\Models\Menu;
+use App\Models\MenuRole;
 use Carbon\Carbon;
-use Exception;
-use JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class Helper
 {
@@ -13,33 +14,23 @@ class Helper
    * based on hour time
    * @return string
    */
-  public static function greeting(){
+  public static function greeting()
+  {
     $carbon = Carbon::now('Asia/Jakarta');
     $hour = $carbon->format('H');
-    if ($hour < 12){
+    if ($hour < 12) {
       return 'Selamat Pagi';
-    }
-    elseif ($hour < 17 ){
+    } elseif ($hour < 17) {
       return 'Selamat Siang';
     }
     return 'Selamat Malam';
   }
 
-  public static function pelapor()
+  public static function menu()
   {
-    try {
-      if (! $user = JWTAuth::parseToken()->authenticate()) {
-        return response()->json(['status' => 'ACCOUNT_NOT_FOUND'], 404);
-      }
-    } catch (Exception $e) {
-      if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-        return response()->json(['status' => 'TOKEN_IS_INVALID'],500);
-      } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
-        return response()->json(['status' => 'TOKEN_IS_EXPIRED'],500);
-      } else{
-        return response()->json(['status' => 'TOKEN_NOT_FOUND'],500);
-      }
-    }
-    return $user;
+    $role_id = Auth::user()->roles->first()->id;
+    $role_menus = MenuRole::select('menu_id')->where('role_id', $role_id)->get();
+    $menu =  Menu::whereIn('id', $role_menus)->where('parent_id', '=', 0)->with('childs')->orderBy('order')->get();
+    return response()->json($menu);
   }
 }
