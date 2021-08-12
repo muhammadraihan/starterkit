@@ -35,6 +35,7 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::patch('profile/{user}/update', 'UserController@ProfileUpdate')->name('profile.update');
     Route::patch('profile/{user}/password', 'UserController@ChangePassword')->name('profile.password');
     // resource
+    Route::resource('menus', 'MenuController');
     Route::resource('users', 'UserController');
     Route::resource('permissions', 'PermissionController');
     Route::resource('roles', 'RoleController');
