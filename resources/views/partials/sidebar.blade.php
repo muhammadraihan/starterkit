@@ -26,54 +26,10 @@
                 <i class="fal fa-angle-down"></i>
             </a>
         </div>
-        <ul id="js-nav-menu" class="nav-menu">
-            <li>
-                <a href="{{route('backoffice.dashboard')}}" title="Dashboard" data-filter-tags="dashboard">
-                    <i class="fal fa-desktop"></i>
-                    <span class="nav-link-text">Dashboard</span>
-                </a>
-            </li>
-            @hasanyrole('superadmin')
-            <li class="nav-title">ACL & Settings</li>
-            <li class="">
-                <a href="#" title="Theme Settings" data-filter-tags="theme settings">
-                    <i class="fal fa-cog"></i>
-                    <span class="nav-link-text" data-i18n="nav.theme_settings">Access Control List</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="{{route('users.index')}}" title="Users Managements"
-                            data-filter-tags="users managements">
-                            <span class="nav-link-text" data-i18n="nav.users_managements">Users Management</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('permissions.index')}}" title="Permissions Managements"
-                            data-filter-tags="permissions managements">
-                            <span class="nav-link-text" data-i18n="nav.permissions_managements">Permissions
-                                Management</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('roles.index')}}" title="Roles Managements"
-                            data-filter-tags="roles managements">
-                            <span class="nav-link-text" data-i18n="nav.roles_managements">Roles
-                                Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            @endhasanyrole
-            @hasanyrole('superadmin')
-            <li class="">
-                <a href="{{route('logs')}}" title="System Log" data-filter-tags="System Log">
-                    <i class="fal fa-shield-check"></i>
-                    <span class="nav-link-text" data-i18n="nav.system_log">System Logs</span>
-                </a>
-            </li>
-            @endhasanyrole
-        </ul>
-        <div class="filter-message js-filter-message bg-success-600"></div>
+        @php
+        $menu = Helper::menu()->getData();
+        @endphp
+        @include('partials.menu',['menu '=> $menu])
     </nav>
     <!-- END PRIMARY NAVIGATION -->
     <!-- NAV FOOTER -->
