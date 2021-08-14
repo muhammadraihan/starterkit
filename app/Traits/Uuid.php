@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 trait Uuid
 {
     /**
@@ -46,7 +48,7 @@ trait Uuid
         $match = preg_match('/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/', $uuid);
 
         if (!is_string($uuid) || $match !== 1) {
-            throw (new ModelNotFoundException)->setModel(get_class($this));
+            throw (new ModelNotFoundException())->setModel(get_class($this));
         }
 
         $results = $query->where($this->getUuidFieldName(), $uuid);

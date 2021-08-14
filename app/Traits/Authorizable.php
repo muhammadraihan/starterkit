@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Request;
+
 trait Authorizable
 {
     private $abilities = [
@@ -32,7 +34,7 @@ trait Authorizable
 
     public function getAbility($method)
     {
-        $routeName = explode('.', \Request::route()->getName());
+        $routeName = explode('.', Request::route()->getName());
         $action = array_get($this->getAbilities(), $method);
 
         return $action ? $action . '_' . $routeName[0] : null;

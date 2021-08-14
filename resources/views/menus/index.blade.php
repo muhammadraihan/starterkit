@@ -1,6 +1,6 @@
 @extends('layouts.page')
 
-@section('title', 'Role Management')
+@section('title', 'Menu Management')
 
 @section('css')
 <link rel="stylesheet" media="screen, print" href="{{asset('css/datagrid/datatables/datatables.bundle.css')}}">
@@ -9,9 +9,9 @@
 @section('content')
 <div class="subheader">
     <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-list'></i> Module: <span class='fw-300'>Role</span>
+        <i class='subheader-icon fal fa-list'></i> Module: <span class='fw-300'>Menu</span>
         <small>
-            Module for manage role.
+            Module for manage menu.
         </small>
     </h1>
 </div>
@@ -20,13 +20,15 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    Roles <span class="fw-300"><i>List</i></span>
+                    Menu <span class="fw-300"><i>List</i></span>
                 </h2>
                 <div class="panel-toolbar">
-                    <a class="nav-link active" href="{{route('roles.create')}}"><i class="fal fa-plus-circle">
+                    @can('add_users')
+                    <a class="nav-link active" href="{{route('menus.create')}}"><i class="fal fa-plus-circle">
                         </i>
                         <span class="nav-link-text">Add New</span>
                     </a>
+                    @endcan
                     <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
                         data-offset="0,10" data-original-title="Fullscreen"></button>
                 </div>
@@ -38,7 +40,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Role</th>
+                                <th>Menu Title</th>
+                                <th>Route</th>
+                                <th>Icon</th>
+                                <th>Parent</th>
+                                <th>Position</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -88,7 +94,7 @@
             "responsive": true,
             "order": [[ 0, "asc" ]],
             "ajax":{
-                url:'{{route('roles.index')}}',
+                url:'{{route('menus.index')}}',
                 type : "GET",
                 dataType: 'json',
                 error: function(data){
@@ -97,7 +103,11 @@
             },
             "columns": [
                 {data:'rownum',width:'5%',searchable:false},
-                {data:'name',width:'*'},
+                {data:'menu_title',width:'*'},
+                {data:'route_name',width:'*'},
+                {data:'icon_class',width:'*'},
+                {data:'parent_id',width:'*'},
+                {data:'order',width:'*'},
                 {data:'action',width:'10%',searchable:false}    
             ]
         });

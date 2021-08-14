@@ -7,39 +7,40 @@
 
 ## About
 
-This is a starter kit to build application project using Laravel framework. This starter kit featured with access control system, and API ready to build backend or frontend. Admin dashboard is integrated with admin template. The purpose of this project is to cut the time of integrating template to laravel or setup authorization with access control list so developer can focus to build some awesome apps.
+This is a starter kit to build application using Laravel framework. This kit featured with access control system and API ready to build backend and frontend. Dashboard frontend is integrated with smartadmin template. The purpose of this project is to cut the time of integrating template to laravel and setup authorization with access control list so developer can focus to build some awesome apps.
 
-## What's New
+## Release Notes
 
-- Now support laravel 8 and PHP 8. [Check changelog](CHANGELOG.md)
-
-- Folder structure now using laravel 8 standard.
+- [release notes](CHANGELOG.md)
 
 ## Requirements
 
-- PHP => 7.3
+- PHP >= 7.3
 
-## Features
+## Basic Features
 
-- Access Control List by spatie.
-- Log Activity by spatie. (Please refer to existing models)
-- API ready by JWT.
-- Smartadmin templates already integrated.
+- HTML and Form generator by [LaravelCollective](https://github.com/LaravelCollective/html)
+- Access Control List by [spatie laravel permission](https://github.com/spatie/laravel-permission)
+- Log Activity by [spatie activity log](https://github.com/spatie/laravel-activitylog)
+- Datatables by [yajra datatable](https://github.com/yajra/laravel-datatables)
+- UUID generator by [webpatser](https://github.com/webpatser/laravel-uuid)
+- API token auth by [jwt-aut](https://github.com/tymondesigns/jwt-auth)
+- SmartAdmin templates by [gotbootstrap](https://www.gotbootstrap.com/)
 
 ## Usage
 
-- Clone this repo
-- Run composer install
 - Copy .env.example to .env
-- Configure .env file for database connection, etc
-- Run php artisan key:generate
-- Run php artisan jwt:secret
-- Run php artisan db:seed --class=UserRoleTableSeeder
+- Configure database and other info in .env file
+- Open terminal and prompt to project root directory
+- Run `composer install`
+- Run `php artisan key:generate`
+- Run `php artisan jwt:secret`
+- Run `php artisan db:seed --class=StarterDataSeeder`
 - Build something awesome !!!
 
-## Admin Dashboard
+## SmartAdmin Template
 
-Admin dashboard is using smartadmin template. Check this [link](https://www.gotbootstrap.com/themes/smartadmin/4.4.1/intel_analytics_dashboard.html) for full documentation. or clone this [repo](https://git.wbaindonesia.co/wbaindonesia/smartadmin-themes.git) and run locally to get more details about this template.
+This dashboard frontend is using smartadmin template. Check this [link](https://www.gotbootstrap.com/themes/smartadmin/4.4.1/intel_analytics_dashboard.html) for full documentation and information.
 
 ## Documentation
 
@@ -55,4 +56,5 @@ If you discover a security vulnerability within this project, please send an e-m
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT) so this starter kit.
+- The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT) so this starter kit but not included admin template.
+- SmartAdmin dashboard template is proprietary software so please refer to this [link](https://www.gotbootstrap.com/) for futher information.

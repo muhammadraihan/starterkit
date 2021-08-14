@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +14,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1'], function() {
+Route::group(['prefix' => 'v1'], function () {
     Route::post('login', 'Api\AuthController@Login');
 });
 
 // Auth route
-Route::group(['prefix' => 'v1', 'middleware' => ['jwt']], function() {
+Route::group(['prefix' => 'v1', 'middleware' => ['jwt']], function () {
     Route::get('logout', 'Api\AuthController@Logout');
 });

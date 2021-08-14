@@ -15,7 +15,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        /**
+         * load ide-helper for non production environment
+         */
+        if ($this->app->isLocal()) {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
     }
 
     /**
@@ -28,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         // fix mysql string length error
         Schema::defaultStringLength(191);
         // force apps to use secure protocol
-        if($this->app->environment('production')){
+        if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
     }
