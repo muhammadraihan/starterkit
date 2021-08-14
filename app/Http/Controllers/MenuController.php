@@ -27,7 +27,6 @@ class MenuController extends Controller
                 DB::raw('@rownum  := @rownum  + 1 AS rownum'),
                 'id', 'uuid', 'menu_title', 'route_name', 'icon_class', 'parent_id', 'order'
             ]);
-            // dd($menus);
             return DataTables::of($menus)
                 ->editColumn('route_name', function ($row) {
                     return $row->route_name ? $row->route_name : '#';
