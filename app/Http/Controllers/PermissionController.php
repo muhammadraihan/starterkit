@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Traits\Authorizable;
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\Facades\DataTables;
+use DB;
+use DataTables;
 
 class PermissionController extends Controller
 {

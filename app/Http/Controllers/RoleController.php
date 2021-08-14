@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Traits\Authorizable;
 use App\Models\Permission;
 use App\Models\Role;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\URL;
-use Yajra\DataTables\Facades\DataTables;
+use DB;
+use URL;
+use DataTables;
 
 class RoleController extends Controller
 {

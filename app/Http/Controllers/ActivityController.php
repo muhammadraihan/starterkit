@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Traits\Authorizable;
 use App\Models\Activity;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\Facades\DataTables;
+use DB;
+use DataTables;
 
 class ActivityController extends Controller
 {

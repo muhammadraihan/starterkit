@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Traits\Authorizable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
-use Yajra\DataTables\Facades\DataTables;
+use Auth;
+use DB;
+use Route;
+use URL;
+use DataTables;
 
 class MenuController extends Controller
 {
