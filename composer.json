@@ -28,6 +28,7 @@
         "yoeunes/toastr": "^1.2"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.10",
         "facade/ignition": "^2.11",
         "fakerphp/faker": "^1.15",
         "mockery/mockery": "^1.4",
