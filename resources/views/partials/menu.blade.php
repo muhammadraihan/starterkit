@@ -5,6 +5,12 @@
             <span class="nav-link-text">Dashboard</span>
         </a>
     </li>
+    <li>
+        <a href="{{route('slide.index')}}" title="Slide" data-filter-tags="Slide">
+            <i class="fal fa-warehouse"></i>
+            <span class="nav-link-text">Slide</span>
+        </a>
+    </li>
     @isset($menu)
     @foreach ($menu as $parent_menu)
     <li class="">
